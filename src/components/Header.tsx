@@ -1,3 +1,4 @@
+import { SignInDialog } from "@/features/auth/components/signin-dialog";
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
 import { ArrowRight, Heart, Menu, X } from "lucide-react";
@@ -143,12 +144,7 @@ export function Header() {
 							className="hidden items-center space-x-3 lg:flex"
 							variants={itemVariants}
 						>
-							<Link
-								to="/login"
-								className="text-foreground/80 hover:text-foreground px-4 py-2 text-sm font-medium transition-colors duration-200"
-							>
-								Sign In
-							</Link>
+							<SignInDialog />
 
 							<motion.div
 								whileHover={{ scale: 1.02 }}

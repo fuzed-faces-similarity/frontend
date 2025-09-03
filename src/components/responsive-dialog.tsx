@@ -16,9 +16,9 @@ import {
   DrawerTitle,
   DrawerTrigger
 } from "@/components/ui/drawer"
+import * as React from "react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { cn } from "@/lib/utils"
-import * as React from "react"
 
 interface ResponsiveDialogProps {
   open?: boolean
