@@ -1,8 +1,9 @@
-import { SignInDialog } from "@/features/auth/components/signin-dialog";
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
-import { ArrowRight, Heart, Menu, X } from "lucide-react";
+import { Heart, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { SignInButton } from "@/features/auth/components/signin-button";
+import { SignUpButton } from "@/features/auth/components/signup-button";
 
 interface NavItem {
 	name: string;
@@ -108,7 +109,7 @@ export function Header() {
 						</motion.div>
 
 						<nav className="hidden items-center space-x-1 lg:flex">
-							{navItems.map((item, index) => (
+							{navItems.map((item) => (
 								<motion.div
 									key={item.name}
 									variants={itemVariants}
@@ -144,20 +145,8 @@ export function Header() {
 							className="hidden items-center space-x-3 lg:flex"
 							variants={itemVariants}
 						>
-							<SignInDialog />
-
-							<motion.div
-								whileHover={{ scale: 1.02 }}
-								whileTap={{ scale: 0.98 }}
-							>
-								<Link
-									to="/signup"
-									className="bg-foreground text-background hover:bg-foreground/90 inline-flex items-center space-x-2 rounded-lg px-5 py-2.5 text-sm font-medium shadow-sm transition-all duration-200"
-								>
-									<span>Get Started</span>
-									<ArrowRight className="h-4 w-4" />
-								</Link>
-							</motion.div>
+							<SignInButton />
+							<SignUpButton />
 						</motion.div>
 
 						<motion.button
@@ -212,20 +201,8 @@ export function Header() {
 									className="border-border space-y-3 border-t pt-6"
 									variants={mobileItemVariants}
 								>
-									<Link
-										to="/login"
-										className="text-foreground hover:bg-muted block w-full rounded-lg py-3 text-center font-medium transition-colors duration-200"
-										onClick={() => setIsMobileMenuOpen(false)}
-									>
-										Sign In
-									</Link>
-									<Link
-										to="/signup"
-										className="bg-foreground text-background hover:bg-foreground/90 block w-full rounded-lg py-3 text-center font-medium transition-all duration-200"
-										onClick={() => setIsMobileMenuOpen(false)}
-									>
-										Get Started
-									</Link>
+									<SignInButton className="h-12 w-full" />
+									<SignUpButton onClick={() => setIsMobileMenuOpen(false)} />
 								</motion.div>
 							</div>
 						</motion.div>
