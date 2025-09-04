@@ -1,7 +1,8 @@
-import { TanstackDevtools } from "@tanstack/react-devtools";
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-
+import { Toaster } from "sonner";
 import { Header } from "@/components/header";
 
 export const Route = createRootRoute({
@@ -9,8 +10,9 @@ export const Route = createRootRoute({
 		<>
 			<Header />
 			<Outlet />
+			<Toaster duration={3000} />
 			{import.meta.env.MODE === "development" && (
-				<TanstackDevtools
+				<TanStackDevtools
 					config={{
 						position: "bottom-left",
 					}}
@@ -18,6 +20,10 @@ export const Route = createRootRoute({
 						{
 							name: "Tanstack Router",
 							render: <TanStackRouterDevtoolsPanel />,
+						},
+						{
+							name: "Tanstack Query",
+							render: <ReactQueryDevtools />,
 						},
 					]}
 				/>
