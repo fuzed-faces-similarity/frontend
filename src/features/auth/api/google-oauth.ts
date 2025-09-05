@@ -2,7 +2,6 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
-import apiClient from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
 import { useAuth } from "@/stores/auth-store";
 
@@ -20,13 +19,6 @@ export const initiateGoogleOAuth = () => {
 };
 
 /**
- * Get current user information from the backend
- */
-export const getCurrentUser = async (): Promise<any> => {
-	return apiClient.get("/api/auth/me");
-};
-
-/**
  * Handles OAuth callback with authorization code or token
  * This function handles different OAuth response formats from your backend
  */
@@ -40,23 +32,6 @@ export const handleOAuthCallback = async (
 
 type UseOAuthCallbackOptions = {
 	mutationConfig?: MutationConfig<typeof handleOAuthCallback>;
-};
-
-/**
- * Hook to get current user data
- */
-export const useGetCurrentUser = () => {
-	const { setUser } = useAuth();
-
-	return useMutation({
-		mutationFn: getCurrentUser,
-		onSuccess: (userData) => {
-			setUser(userData);
-		},
-		onError: (error: Error) => {
-			console.error("Failed to get current user:", error);
-		},
-	});
 };
 
 /**
