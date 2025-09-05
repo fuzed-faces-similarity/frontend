@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
 import { Heart, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useMe } from "@/features/auth/api/get-me";
 import { SignInButton } from "@/features/auth/components/signin-button";
 import { SignOutButton } from "@/features/auth/components/signout-button";
 import { SignUpButton } from "@/features/auth/components/signup-button";
@@ -19,10 +20,18 @@ const navItems: NavItem[] = [
 ];
 
 export function Header() {
-	const { user } = useAuth();
+	const { user, setUser } = useAuth();
+	const { data, isLoading } = useMe();
+
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+
+	React.useEffect(() => {
+		if (data) {
+			setUser(data);
+		}
+	}, [data]);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -145,20 +154,23 @@ export function Header() {
 							))}
 						</nav>
 
-						<motion.div
-							className="hidden items-center space-x-3 lg:flex"
-							variants={itemVariants}
-						>
-							{user ? (
-								<ProfileDropdown />
-							) : (
-								<>
-									<SignInButton />
-									<SignUpButton />
-								</>
-							)}
-						</motion.div>
-
+						{isLoading ? (
+							<div className="w-12" />
+						) : (
+							<motion.div
+								className="hidden items-center space-x-3 lg:flex"
+								variants={itemVariants}
+							>
+								{user ? (
+									<ProfileDropdown />
+								) : (
+									<>
+										<SignInButton />
+										<SignUpButton />
+									</>
+								)}
+							</motion.div>
+						)}
 						<motion.button
 							className="text-foreground hover:bg-muted rounded-lg p-2 transition-colors duration-200 lg:hidden"
 							onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
