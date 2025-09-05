@@ -5,20 +5,14 @@ import apiClient from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
 import { useAuth } from "@/stores/auth-store";
 
-/**
- * Sign out the current user
- */
-export const signOut = async (): Promise<void> => {
+export const signOutApi = async (): Promise<void> => {
 	return apiClient.post("/api/auth/logout");
 };
 
 type UseSignOutOptions = {
-	mutationConfig?: MutationConfig<typeof signOut>;
+	mutationConfig?: MutationConfig<typeof signOutApi>;
 };
 
-/**
- * Hook to handle user sign out
- */
 export const useSignOut = ({ mutationConfig }: UseSignOutOptions = {}) => {
 	const { reset } = useAuth();
 	const router = useRouter();
@@ -33,13 +27,12 @@ export const useSignOut = ({ mutationConfig }: UseSignOutOptions = {}) => {
 			router.navigate({ to: "/" });
 		},
 		onError: (error: Error, ...args) => {
-			// Even if the API call fails, we should still clear local state
 			reset();
 			toast.success("Logged out successfully");
 			router.navigate({ to: "/" });
 			onError?.(error, ...args);
 		},
 		...restConfig,
-		mutationFn: signOut,
+		mutationFn: signOutApi,
 	});
 };

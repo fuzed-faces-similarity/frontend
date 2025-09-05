@@ -9,5 +9,5 @@ export type UserApi = {
 	email: string;
 	avatar: string;
 	age?: number;
-	gender: Gender;
+	gender?: Gender;
 };
