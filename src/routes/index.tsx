@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useAuth, useUser } from "@/stores/auth-store";
 import { SignInButton } from "@/features/auth/components/signin-button";
 import { SignOutButton } from "@/features/auth/components/signout-button";
+import { useAuth, useUser } from "@/stores/auth-store";
 
 export const Route = createFileRoute("/")({
 	component: HomePage,

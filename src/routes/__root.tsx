@@ -1,33 +1,6 @@
-import { TanStackDevtools } from "@tanstack/react-devtools";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { createRootRoute, Outlet } from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { Toaster } from "sonner";
-import { Header } from "@/components/header";
+import { createRootRoute } from "@tanstack/react-router";
+import { RootLayout } from "@/components/layout/root-layout";
 
 export const Route = createRootRoute({
-	component: () => (
-		<>
-			<Header />
-			<Outlet />
-			<Toaster duration={3000} />
-			{import.meta.env.MODE === "development" && (
-				<TanStackDevtools
-					config={{
-						position: "bottom-left",
-					}}
-					plugins={[
-						{
-							name: "Tanstack Router",
-							render: <TanStackRouterDevtoolsPanel />,
-						},
-						{
-							name: "Tanstack Query",
-							render: <ReactQueryDevtools />,
-						},
-					]}
-				/>
-			)}
-		</>
-	),
+	component: RootLayout,
 });

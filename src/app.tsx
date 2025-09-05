@@ -5,12 +5,11 @@ import {
 } from "@tanstack/react-query";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { AxiosError } from "axios";
-import { useEffect } from "react";
 import { toast } from "sonner";
 import { ThemeProvider } from "@/contexts/theme-context";
+import { getMeQueryOptions } from "@/features/auth/api/get-me";
 import { handleServerError } from "@/lib/utils/handle-server-error";
 import { useAuth, useAuthStore } from "@/stores/auth-store";
-// import { useGetCurrentUser } from "@/features/auth/api/google-oauth";
 // Generated Routes
 import { routeTree } from "./routeTree.gen";
 
@@ -48,7 +47,6 @@ const queryClient = new QueryClient({
 		onError: (error) => {
 			if (error instanceof AxiosError) {
 				if (error.response?.status === 401) {
-					toast.error("Session expired!");
 					useAuthStore.getState().auth.reset();
 					// const redirect = `${router.history.location.href}`;
 					// router.navigate({ to: "/sign-in", search: { redirect } });
@@ -81,15 +79,7 @@ declare module "@tanstack/react-router" {
 }
 
 function App() {
-	const { accessToken, user } = useAuth();
-	// const getCurrentUser = useGetCurrentUser();
-
-	// // Fetch user data on app load if we have a token but no user data
-	// useEffect(() => {
-	// 	if (accessToken && !user) {
-	// 		getCurrentUser.mutate();
-	// 	}
-	// }, [accessToken, user, getCurrentUser]);
+	const { accessToken } = useAuth();
 
 	return (
 		<QueryClientProvider client={queryClient}>

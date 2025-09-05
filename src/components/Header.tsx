@@ -202,7 +202,7 @@ export function Header() {
 									variants={mobileItemVariants}
 								>
 									<SignInButton className="h-12 w-full" />
-									<SignUpButton onClick={() => setIsMobileMenuOpen(false)} />
+									<SignUpButton className="h-12 w-full" />
 								</motion.div>
 							</div>
 						</motion.div>
