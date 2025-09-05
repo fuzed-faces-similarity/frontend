@@ -7,7 +7,6 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
 import { ThemeProvider } from "@/contexts/theme-context";
-import { getMeQueryOptions } from "@/features/auth/api/get-me";
 import { handleServerError } from "@/lib/utils/handle-server-error";
 import { useAuth, useAuthStore } from "@/stores/auth-store";
 // Generated Routes

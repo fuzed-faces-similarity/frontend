@@ -3,7 +3,10 @@ import { AnimatePresence, easeInOut, motion } from "framer-motion";
 import { Heart, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SignInButton } from "@/features/auth/components/signin-button";
+import { SignOutButton } from "@/features/auth/components/signout-button";
 import { SignUpButton } from "@/features/auth/components/signup-button";
+import { useAuth } from "@/stores/auth-store";
+import { ProfileDropdown } from "../profile-dropdown";
 
 interface NavItem {
 	name: string;
@@ -16,6 +19,7 @@ const navItems: NavItem[] = [
 ];
 
 export function Header() {
+	const { user } = useAuth();
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -145,8 +149,14 @@ export function Header() {
 							className="hidden items-center space-x-3 lg:flex"
 							variants={itemVariants}
 						>
-							<SignInButton />
-							<SignUpButton />
+							{user ? (
+								<ProfileDropdown />
+							) : (
+								<>
+									<SignInButton />
+									<SignUpButton />
+								</>
+							)}
 						</motion.div>
 
 						<motion.button
@@ -201,8 +211,14 @@ export function Header() {
 									className="border-border space-y-3 border-t pt-6"
 									variants={mobileItemVariants}
 								>
-									<SignInButton className="h-12 w-full" />
-									<SignUpButton className="h-12 w-full" />
+									{user ? (
+										<SignOutButton className="h-12 w-full" />
+									) : (
+										<>
+											<SignInButton className="h-12 w-full" />
+											<SignUpButton className="h-12 justify-center w-full" />
+										</>
+									)}
 								</motion.div>
 							</div>
 						</motion.div>

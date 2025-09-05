@@ -6,7 +6,7 @@ import React from "react";
 import { Toaster } from "sonner";
 import { useMe } from "@/features/auth/api/get-me";
 import { useAuth } from "@/stores/auth-store";
-import { Header } from "../header";
+import { Header } from "./header";
 
 export function RootLayout() {
 	const { setUser } = useAuth();
